@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, create_engine
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
@@ -8,9 +8,9 @@ class License(Base):
     __tablename__ = 'licenses'
     
     id = Column(Integer, primary_key=True)
-    hwid = Column(String, unique=True, nullable=True)           # HWID устройства
-    license_key = Column(String, unique=True, nullable=False)  # Уникальный ключ
-    expiry_date = Column(DateTime, nullable=True)              # Дата истечения
-    is_active = Column(Boolean, default=True)                  # Активна ли
-    telegram_username = Column(String, nullable=True)          # Для удобства админа
-    created_at = Column(DateTime, default=datetime.utcnow)     # Дата создания
+    hwid = Column(String, unique=True, nullable=True)
+    license_key = Column(String, unique=True, nullable=False)
+    expiry_date = Column(DateTime, nullable=True)
+    is_active = Column(Boolean, default=True)
+    telegram_username = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)

@@ -1,4 +1,3 @@
-# admin_cli.py
 import sys
 import secrets
 from datetime import datetime, timedelta
@@ -6,12 +5,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import License
 
-DATABASE_URL = "sqlite:///./licenses.db"
+# ====== ЗДЕСЬ ВСТАВЬТЕ ВАШУ СТРОКУ ПОДКЛЮЧЕНИЯ ИЗ SUPABASE ======
+DATABASE_URL = "postgresql://postgres:alexeyalexey_625123@db.kyldvitxjytiaygbaphn.supabase.co:5432/postgres"
+
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
 def generate_key():
-    """Генерирует случайный ключ (32 символа)"""
     return secrets.token_hex(16)
 
 def print_help():
@@ -45,8 +45,6 @@ def main():
                 print(f"✅ Ключ создан: {key}")
             elif cmd[0] == "list":
                 licenses = session.query(License).all()
-                if not licenses:
-                    print("📭 Нет лицензий")
                 for lic in licenses:
                     now = datetime.utcnow()
                     status = "✅" if lic.is_active and lic.expiry_date and lic.expiry_date > now else "❌"
